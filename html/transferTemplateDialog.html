@@ -1,0 +1,18 @@
+<!--MOJE-->
+<div class="modal-header">
+    {{ctrl.toEdit ? 'Edytuj' : 'Utwórz'}} przelew zdefiniowany
+</div>
+
+<div class="modal-body">
+    <input type="text" list="recipients" class="form-inline" placeholder="Email odbiorcy" autocomplete="off" ng-model="ctrl.template.recipient">
+    <datalist id="recipients">
+        <option ng-repeat="recipient in ctrl.emails" value="{{recipient}}" ng-bind="recipient"></option>
+    </datalist>
+    <input class="form-inline" type="number" placeholder="Kwota" ng-model="ctrl.template.amount"/>
+    <input class="form-inline" type="text" placeholder="Opis" ng-model="ctrl.template.description"/>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="ctrl.submit(ctrl.toEdit)" ng-disabled="ctrl.formInvalid()">{{ctrl.toEdit ? 'Edytuj' : 'Utwórz'}}</button>
+    <!--<button class="btn btn-danger fa fa-angle-left" ng-click="ctrl.submit(false)"></button>-->
+</div>

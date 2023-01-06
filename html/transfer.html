@@ -1,0 +1,32 @@
+<h3>Saldo <span ng-bind="ctrl.account.balance"></span></h3>
+<p>Limit <span ng-bind="ctrl.account.limit"></span></p>
+
+<p>Przelew
+    <input type="text" list="recipients" class="form-inline" placeholder="Email odbiorcy" autocomplete="off" ng-model="ctrl.transaction.recipient">
+    <datalist id="recipients">
+        <option ng-repeat="recipient in ctrl.emails" value="{{recipient}}" ng-bind="recipient"></option>
+    </datalist>
+    <input class="form-inline" type="number" placeholder="Kwota" ng-model="ctrl.transaction.amount"/>
+    <input class="form-inline" type="text" placeholder="Opis" ng-model="ctrl.transaction.description"/>
+    <button class="btn btn-primary" ng-click="ctrl.doTransfer()" ng-disabled="ctrl.formInvalid()">Zrób</button>
+</p>
+
+<!--MOJE-->
+<p style="text-align: left;">
+    <button class="btn btn-primary" ng-click="ctrl.openModal()">Utwórz przelew zdefiniowany</button>
+</p>
+
+<div ng-if="ctrl.templates.length !== 0">
+    Twoje przelewy zdefiniowane: <br><br>
+    <table class="table table-hover">
+        <tr ng-repeat="entry in ctrl.templates" ng-click="ctrl.useTemplate(entry.recipient, entry.amount, entry.description, $event)">
+            <td style="text-align: center;" ng-bind="entry.recipient">{{val}} zł</td>
+            <td style="text-align: center;" ng-bind="entry.amount + ' zł'"></td>
+            <td style="text-align: center;" ng-bind="entry.description"></td>
+            <td>
+                <button  ng-click="ctrl.deleteTemplate(entry._id, $index)">Usuń</button>
+                <button  ng-click="ctrl.openModal({id: entry._id, recipient: entry.recipient, amount: entry.amount, description: entry.description})">Edytuj</button>
+            </td>
+        </tr>
+    </table>
+</div>

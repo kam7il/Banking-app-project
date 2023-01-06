@@ -1,0 +1,43 @@
+<!--MOJE-->
+
+<h3>Admin Panel</h3>
+<br>
+
+Sortuj: <br>
+Rola:
+<select ng-model="ctrl.role" ng-change="ctrl.refreshData()">
+    <option value="all">Wszyscy</option>
+    <option value="worker">Pracownicy</option>
+    <option value="user">Zwykli użytkownicy</option>
+</select>
+
+Status:
+<select ng-model="ctrl.active" ng-change="ctrl.refreshData()">
+    <option value="all">Wszyscy</option>
+    <option value="true">Aktywni</option>
+    <option value="false">Nieaktywni</option>
+</select>
+
+Email: <input class="form-inline" type="text" placeholder="Filtruj" ng-model="ctrl.filter" ng-change="ctrl.refreshData()"/>
+
+<table class="table table-striped">
+    <tr>
+        <th style="text-align: center;">Nr. konta</th>
+        <th style="text-align: center;">Email</th>
+        <th style="text-align: right;">Uprawnienia admina</th>
+        <th style="text-align: left;">Status aktywności konta</th>
+        <th style="text-align: left;">Edytuj</th>
+
+    </tr>
+    <tr ng-repeat="entry in ctrl.accounts">
+        <td style="text-align: center;" ng-bind="entry._id"></td>
+        <td style="text-align: center;" ng-bind="entry.email"></td>
+        <td style="text-align: right;" ng-bind="entry.isAdmin"></td>
+        <td style="text-align: left;" ng-bind="entry.active"></td>
+        <td>
+            <button ng-click="ctrl.edit(entry._id, entry.active, entry.isAdmin , $index, 'active')">{{entry.active ? 'Dezaktywuj konto' : 'Aktywuj konto'}}</button>
+            <br>
+            <button ng-click="ctrl.edit(entry._id, entry.active, entry.isAdmin , $index, 'role')">{{entry.isAdmin ? 'Odbierz uprawnienia admina' : 'Nadaj uprawnienia admina'}}</button>
+        </td>
+    </tr>
+</table>
